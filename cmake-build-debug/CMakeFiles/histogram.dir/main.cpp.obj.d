@@ -1,5 +1,5 @@
 CMakeFiles/histogram.dir/main.cpp.obj: \
- C:\Users\diver\CLionProjects\csc2210-spa2\main.cpp \
+ C:\Users\cartwrightr\CSC-2210\csc2210-spa2\main.cpp \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iostream \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.2.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
