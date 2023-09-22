@@ -2,34 +2,54 @@
 #include <iomanip>
 using namespace std;
 
-void fillArray (int lowestValue, int highestValue, int range, int num, int data[][2]) {
+void fillArray (int lowestValue, int highestValue, int num, int data[][2]) {
     if (num >= lowestValue && num <= highestValue) {
-        data[range - num][1]++;
+        data[num - lowestValue][1] += 1;
     }
     else {
-        cout << "Error: value" << num << "is out of range";
+        cout << "Error: value " << num << " is out of range" << endl;
     }
 }
 
-void histogramBars (int range, int data[][2]) {
-    for (int i = range; i >= 0; --i) {
-        cout << setw(3) << range;
-        cout << "|";
-        for (int p = data[i][1]; p >= 0; --p) {
+void histogramBars (int lowestValue, int highestValue, int data[][2]) {
+    for (int i = highestValue; i >= lowestValue; --i) {
+        cout << setw(3) << i << " |";
+        for (int p = data[i - lowestValue][1]; p > 0; --p) {
             cout << "#";
         }
         cout << endl;
     }
 }
 
-void scaleBars (int range) {
-    for (int i = 0; i < range; i += 5) {
-        cout << "+" << "----";
+int getHighestCount(int range, int data[][2]) {
+    int highestCount = 0;
+    for (int a = 0; a <= range; ++a) {
+        if (data[a][1] > highestCount) {
+            highestCount = data[a][1];
+        }
     }
-    cout << endl;
-    for (int b = 0; b < range; b += 5) {
-        cout << b << "    ";
+    return highestCount;
+}
+
+void scaleBars (int highestCount) {
+    cout << "    ";
+    for (int i = 0; i < highestCount; i += 5) {
+        cout << setw(5) << "+----";
     }
+    cout << "+" << endl;
+    cout << "    ";
+    for (int b = 0; b < highestCount; b += 5) {
+        if (b < 10) {
+            cout << b << "    ";
+        }
+        if (b > 9 && b < 100) {
+            cout << b << "   ";
+        }
+        if (b > 99 && b < 1000) {
+            cout << b << "  ";
+        }
+    }
+    cout << highestCount / 5 * 5 + 5;
 }
 
 int main() {
@@ -40,20 +60,21 @@ int main() {
     int highestValue = num;
     int range = 1;
     range = highestValue - lowestValue;
-    int data[range][2];
-    for (int y = 0; y < range; ++y) {
+    int data[range + 1][2];
+    for (int y = 0; y <= range; ++y) {
         data[y][0] = lowestValue + y;
         data[y][1] = 0;
     }
 
     cin >> num;
     while(cin) {
-        fillArray(lowestValue, highestValue, range, num, data);
+        fillArray(lowestValue, highestValue, num, data);
+        cin >> num;
     }
 
-    histogramBars(range, data);
-    scaleBars(range);
-    
+    histogramBars(lowestValue, highestValue, data);
+    scaleBars(getHighestCount(range, data));
+
     return 0;
 }
 
