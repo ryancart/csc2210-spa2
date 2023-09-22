@@ -2,6 +2,8 @@
 #include <iomanip>
 using namespace std;
 
+// Function to fill the array [][x] x values with the counts of a
+// numbers appearance
 void fillArray (int lowestValue, int highestValue, int num, int data[][2]) {
     if (num >= lowestValue && num <= highestValue) {
         data[num - lowestValue][1] += 1;
@@ -11,6 +13,7 @@ void fillArray (int lowestValue, int highestValue, int num, int data[][2]) {
     }
 }
 
+// Function to print the numbers counted and their occurrences.
 void histogramBars (int lowestValue, int highestValue, int data[][2]) {
     for (int i = highestValue; i >= lowestValue; --i) {
         cout << setw(3) << i << " |";
@@ -21,6 +24,8 @@ void histogramBars (int lowestValue, int highestValue, int data[][2]) {
     }
 }
 
+// Function that returns the highest occurrence of a number. This
+// is used to print the correct length x-axis bar.
 int getHighestCount(int range, int data[][2]) {
     int highestCount = 0;
     for (int a = 0; a <= range; ++a) {
@@ -31,31 +36,36 @@ int getHighestCount(int range, int data[][2]) {
     return highestCount;
 }
 
+// Function to print the x-axis scale.
 void scaleBars (int highestCount) {
     if (highestCount < 10) {
         highestCount = 10;
+    } else {
+        if (highestCount % 5 > 0) {
+            highestCount += 5;
+        }
     }
-    
     cout << "    ";
+
     for (int i = 0; i < highestCount; i += 5) {
         cout << setw(5) << "+----";
     }
     cout << "+" << endl;
-    cout << "    ";
-    for (int b = 0; b < highestCount; b += 5) {
-        if (b < 10) {
-            cout << b << "    ";
+    
+    for (int b = 0; b < highestCount + 5; b += 5) {
+        if (b < 11) {
+            cout << "    " << b;
         }
-        if (b > 9 && b < 100) {
-            cout << b << "   ";
+        if (b > 10 && b < 100) {
+            cout << "   " << b;
         }
         if (b > 99 && b < 1000) {
-            cout << b << "  ";
+            cout << "  " << b;
         }
     }
-    cout << highestCount / 5 * 5 + 5;
 }
 
+// Main instantiates the histogram 2d array and provided program control.
 int main() {
     int num;
     cin >> num;
