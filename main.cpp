@@ -32,6 +32,10 @@ int getHighestCount(int range, int data[][2]) {
 }
 
 void scaleBars (int highestCount) {
+    if (highestCount < 10) {
+        highestCount = 10;
+    }
+    
     cout << "    ";
     for (int i = 0; i < highestCount; i += 5) {
         cout << setw(5) << "+----";
