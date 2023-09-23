@@ -1,3 +1,4 @@
+// SPA 2, Fall 2023, Ryan Cartwright
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -36,8 +37,8 @@ int getHighestCount(int range, int data[][2]) {
     return highestCount;
 }
 
-// Function to print the x-axis scale.
-void scaleBars (int highestCount) {
+// Function to print the top x-axis scale.
+void scaleBarsTop (int highestCount) {
     if (highestCount < 10) {
         highestCount = 10;
     } else {
@@ -45,13 +46,42 @@ void scaleBars (int highestCount) {
             highestCount += 5;
         }
     }
-    cout << "    ";
 
+    cout << "    ";
     for (int i = 0; i < highestCount; i += 5) {
         cout << setw(5) << "+----";
     }
     cout << "+" << endl;
-    
+
+//    for (int b = 0; b < highestCount + 5; b += 5) {
+//        if (b < 11) {
+//            cout << "    " << b;
+//        }
+//        if (b > 10 && b < 100) {
+//            cout << "   " << b;
+//        }
+//        if (b > 99 && b < 1000) {
+//            cout << "  " << b;
+//        }
+//    }
+}
+
+// Function to print the bottom x-axis scale.
+void scaleBarsBottom (int highestCount) {
+    if (highestCount < 10) {
+        highestCount = 10;
+    } else {
+        if (highestCount % 5 > 0) {
+            highestCount += 5;
+        }
+    }
+
+//    cout << "    ";
+//    for (int i = 0; i < highestCount; i += 5) {
+//        cout << setw(5) << "+----";
+//    }
+//    cout << "+" << endl;
+
     for (int b = 0; b < highestCount + 5; b += 5) {
         if (b < 11) {
             cout << "    " << b;
@@ -63,6 +93,14 @@ void scaleBars (int highestCount) {
             cout << "  " << b;
         }
     }
+}
+
+// Arbitrary function created and called to call other functions with the sole
+// intent of reducing line count in the main function.
+void doTheThings(int lowestValue, int highestValue, int range, int data[][2]) {
+    histogramBars(lowestValue, highestValue, data);
+    scaleBarsTop(getHighestCount(range, data));
+    scaleBarsBottom(getHighestCount(range, data));
 }
 
 // Main instantiates the histogram 2d array and provided program control.
@@ -79,16 +117,12 @@ int main() {
         data[y][0] = lowestValue + y;
         data[y][1] = 0;
     }
-
     cin >> num;
     while(cin) {
         fillArray(lowestValue, highestValue, num, data);
         cin >> num;
     }
-
-    histogramBars(lowestValue, highestValue, data);
-    scaleBars(getHighestCount(range, data));
-
+    doTheThings(lowestValue, highestValue, range, data);
     return 0;
 }
 
